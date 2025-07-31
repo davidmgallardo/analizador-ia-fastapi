@@ -3,6 +3,7 @@ import google.generativeai as genai
 import requests
 from PIL import Image
 import io
+import paho.mqtt.publish as publish
 
 app = FastAPI()
 
@@ -37,9 +38,17 @@ async def analiza(data: dict):
 
         resultado_texto = result.text.strip()
 
-        # Escribir en archivo que el sensor de Home Assistant pueda leer
-        with open("/homeassistant/ia_resultado.txt", "w") as f:
-            f.write(resultado_texto)
+        # Publicar resultado por MQTT
+        publish.single(
+            topic="frigate/ia/resultado",
+            payload=resultado_texto,
+            hostname="192.168.68.X",   # Cambia por la IP de tu broker MQTT
+            port=1883,
+            auth={
+                "username": "usuario",      # Opcional si tu broker lo requiere
+                "password": "contraseña"
+            }
+        )
 
         return {"response": resultado_texto}
 
