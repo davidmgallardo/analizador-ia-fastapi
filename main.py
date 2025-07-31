@@ -38,7 +38,7 @@ async def analiza(data: dict):
         resultado_texto = result.text.strip()
 
         # Escribir en archivo que el sensor de Home Assistant pueda leer
-        with open("/config/ia_resultado.txt", "w") as f:
+        with open("/homeassistant/ia_resultado.txt", "w") as f:
             f.write(resultado_texto)
 
         return {"response": resultado_texto}
