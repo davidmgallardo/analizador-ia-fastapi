@@ -42,11 +42,11 @@ async def analiza(data: dict):
         publish.single(
             topic="frigate/ia/resultado",
             payload=resultado_texto,
-            hostname="192.168.68.X",   # Cambia por la IP de tu broker MQTT
+            hostname="192.168.68.84",   # Cambia por la IP de tu broker MQTT
             port=1883,
             auth={
-                "username": "usuario",      # Opcional si tu broker lo requiere
-                "password": "contraseña"
+                "username": "mosquitto",      # Opcional si tu broker lo requiere
+                "password": "nYxte2-gYvc@x-goqs1*"
             }
         )
 
