@@ -5,7 +5,7 @@ import requests
 app = FastAPI()
 
 # Configura tu clave de API de Gemini
-genai.configure(api_key="TU_API_KEY_AQUI")
+genai.configure(api_key="AIzaSyCDk77qutgA8jnKBAKTNhNpHh_A2z-yYbE")
 
 @app.post("/analiza")
 async def analiza(data: dict):
