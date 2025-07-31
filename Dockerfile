@@ -2,7 +2,8 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-RUN pip install fastapi uvicorn
+# Instala FastAPI, Uvicorn y Google Gemini client
+RUN pip install fastapi uvicorn google-generativeai requests
 
 COPY main.py .
 
