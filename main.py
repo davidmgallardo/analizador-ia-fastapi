@@ -35,7 +35,13 @@ async def analiza(data: dict):
             [image, "Analiza cuidadosamente esta imagen capturada por una cámara de seguridad. Ignora detalles irrelevantes como el césped, las paredes, objetos pequeños o el mobiliario. Concéntrate exclusivamente en las personas que aparecen: ¿Cuántas hay? ¿Qué están haciendo exactamente? ¿Dónde están ubicadas en la escena? ¿Qué ropa llevan puesta (colores, tipo de prenda)? ¿Llevan objetos o mochilas? ¿Están mirando a cámara, encapuchadas o cubriendo su rostro? ¿Presentan comportamientos o posturas que puedan parecer sospechosas o inusuales (por ejemplo: mirar constantemente alrededor, moverse con sigilo, esconder algo, forzar entradas, etc.)? Sé preciso y conciso en la descripción de cada persona y su comportamiento. El objetivo es evaluar si hay actividad sospechosa en la escena."]
         )
 
-        return {"response": result.text.strip()}
+        resultado_texto = result.text.strip()
+
+        # Escribir en archivo que el sensor de Home Assistant pueda leer
+        with open("/homeassistant/ia_resultado.txt", "w") as f:
+            f.write(resultado_texto)
+
+        return {"response": resultado_texto}
 
     except Exception as e:
         return {"error": f"Ocurrió un error al procesar la imagen: {str(e)}"}
