@@ -4,7 +4,7 @@ import requests
 
 app = FastAPI()
 
-@app.post("/analiza-ia")
+@app.post("/analiza")
 async def analiza(data: dict):
     url = data.get("url", "")
     api_key = data.get("api-key", "")
