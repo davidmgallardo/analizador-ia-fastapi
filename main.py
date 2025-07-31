@@ -30,7 +30,7 @@ async def analiza(data: dict):
         image = Image.open(io.BytesIO(response.content))
 
         # Enviar a Gemini Vision
-        model = genai.GenerativeModel("models/gemini-pro-vision")
+        model = genai.GenerativeModel("gemini-2.0-flash")
         result = model.generate_content(
             [image, "Describe con detalle lo que ves en esta imagen. ¿Hay personas, objetos o situaciones relevantes?"]
         )
