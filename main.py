@@ -3,6 +3,7 @@ import google.generativeai as genai
 import requests
 from PIL import Image
 import io
+import paho.mqtt.publish as publish
 
 app = FastAPI()
 
@@ -35,7 +36,21 @@ async def analiza(data: dict):
             [image, "Analiza cuidadosamente esta imagen capturada por una cámara de seguridad. Ignora detalles irrelevantes como el césped, las paredes, objetos pequeños o el mobiliario. Concéntrate exclusivamente en las personas que aparecen: ¿Cuántas hay? ¿Qué están haciendo exactamente? ¿Dónde están ubicadas en la escena? ¿Qué ropa llevan puesta (colores, tipo de prenda)? ¿Llevan objetos o mochilas? ¿Están mirando a cámara, encapuchadas o cubriendo su rostro? ¿Presentan comportamientos o posturas que puedan parecer sospechosas o inusuales (por ejemplo: mirar constantemente alrededor, moverse con sigilo, esconder algo, forzar entradas, etc.)? Sé preciso y conciso en la descripción de cada persona y su comportamiento. El objetivo es evaluar si hay actividad sospechosa en la escena."]
         )
 
-        return {"response": result.text.strip()}
+        resultado_texto = result.text.strip()
+
+        # Publicar resultado por MQTT
+        publish.single(
+            topic="frigate/ia/resultado",
+            payload=resultado_texto,
+            hostname="192.168.68.84",   # Cambia por la IP de tu broker MQTT
+            port=1883,
+            auth={
+                "username": "mosquitto",      # Opcional si tu broker lo requiere
+                "password": "nYxte2-gYvc@x-goqs1*"
+            }
+        )
+
+        return {"response": resultado_texto}
 
     except Exception as e:
         return {"error": f"Ocurrió un error al procesar la imagen: {str(e)}"}
