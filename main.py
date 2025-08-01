@@ -10,7 +10,7 @@ app = FastAPI()
 @app.post("/analiza-ia")
 async def analiza(data: dict):
     url = data.get("url", "")
-    api_key = data.get("api-key", "")
+    api_key = data.get("api_key", "")
 
     if not url:
         return {"error": "No se proporcionó ninguna URL"}
