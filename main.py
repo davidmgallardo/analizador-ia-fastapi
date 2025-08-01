@@ -50,7 +50,7 @@ async def analiza(data: dict):
             }
         )
 
-        return {"response": resultado_texto}
+        return resultado_texto
 
     except Exception as e:
         return {"error": f"Ocurrió un error al procesar la imagen: {str(e)}"}
